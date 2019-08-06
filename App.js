@@ -14,6 +14,8 @@ import About from 'components/About';
 
 import AddReview from 'components/AddReview';
  
+import SplashScreen from 'react-native-splash-screen'
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const List = createStackNavigator({
@@ -54,7 +56,7 @@ const Tabs = createBottomTabNavigator({
   }
 })
 
-const TabsNavigator = createStackNavigator({
+const ModalNav = createStackNavigator({
   Tabs: { screen: Tabs },
   AddReview: { screen: AddReview }  
 }, {
@@ -65,10 +67,14 @@ const TabsNavigator = createStackNavigator({
   }
 })
 
-const AppContainer = createAppContainer(TabsNavigator);
+const AppContainer = createAppContainer(ModalNav);
 
 export default class App extends Component{
 
+  componentDidMount() {
+    SplashScreen.hide()
+  }
+  
   render() {
     return <AppContainer />
   }
