@@ -1,86 +1,37 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
   View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  FlatList
+  Text
 } from 'react-native'
 
-import Header from 'components/Header'
-
-import RestaurantRow from 'components/RestaurantRow'
-
-
-
 export default class App extends Component {
-
-  state = {
-    search: null,
-    restaurants: []
-  }
-
-  componentDidMount() {
-    fetch('http://10.0.2.2:3000/restaurants')
-      .then(response => response.json())
-      .then(result => this.setState({ restaurants: result}))
-  }
   render() {
-
-
-
     return (
+      <View>
+        <Text style={{
+          padding: 40,
+          fontSize: 30,
+          textAlign: 'center',
+          color: '#0066CC',
+          fontWeight: '300'
+        }}>Restaurant Review</Text>
 
-      <View style={{
-        flex: 1
-      }}>
+        <Text>React Cafe</Text>
+        
+        <Text style={{color:'grey'}}>123 Anywhere St</Text>
 
-        <Header />
-
-        <TextInput
-          style={styles.input}
-          placeholder="Live Search"
-          onChangeText={text => {
-            this.setState({ search: text })
-          }}
-          value={this.state.search}
-        />
-
-        <FlatList
-          data = {
-            this.state.restaurants.filter(place => {
-             return !this.state.search || 
-              place.name.toLowerCase().indexOf(this.state.search.toLowerCase()) > -1
-            })
-          }
-          renderItem={({item, index}) =>
-            <RestaurantRow place={item} index={index} />
-          }
-          keyExtractor={item =>item.name}
-          initialNumToRender={16}
-        />
-
+        <Text>Fancy Restaurant</Text>
+        <Text style={{color: 'grey'}}>
+          799 Main St
+        </Text>
       </View>
     );
   }
 }
 
 
-const styles = StyleSheet.create({
 
- 
-  input: {
-    padding: 10,
-    paddingHorizontal: 20,
-    fontSize: 16,
-    color: '#444',
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    backgroundColor: '#F5F5F5'
-  }
-})
 
 
 
