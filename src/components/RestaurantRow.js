@@ -6,32 +6,38 @@ import {
     StyleSheet,
     TouchableOpacity,
     TouchableHighlight,
-    TouchablewithoutFeedback
-} from 'react-native'
+    TouchablewithoutFeedback,
+    Image,  
+  } from 'react-native'
+
+import Stars from 'components/Stars';
+
+// import { withNavigation } from 'react-navigation';
 
 export default class RestaurantRow extends Component {
-    
+   
     state = {
         showInfo: false
     }
 
     infoPressed = () => {
-        this.setState({ showInfo: !this.state.showInfo})
+      this.props.navigation.navigate('Info', {
+        place: this.props.place
+      })
     }
-    render() {
 
+    render() {
         const {
             place, 
             index
         } = this.props
 
-
         return (
             <View key={place.name} style={{backgroundColor: index % 2 === 0 ? 'white' : '#F3F3F7' }}>
 
             <View style={styles.row}>      
-              <View style={styles.edges}>
-                <Text>{index + 1}</Text>
+              <View style={styles.stars}>
+                <Stars rating={place.rating} />
               </View>
 
               <View style={styles.nameAddress}>
@@ -57,10 +63,20 @@ export default class RestaurantRow extends Component {
                 this.state.showInfo &&
                 <View style={styles.info}>
                     <Text>Restaurant Info</Text>
+                    <Image 
+                    source={{
+                      uri: `http://10.0.2.2:3000/images/${place.image}`,
+                    }}
+                    style={{
+                      flex: 1,
+                      height: 100
+                    }}
+                    resizeMode="contain"
+                 />
                 </View>
               }
             </View>
-          )
+        )
     }
 }
 
@@ -72,6 +88,14 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 5,
+        minWidth: 50
+      },
+      stars: {
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
         padding: 5,
         minWidth: 50
       },
